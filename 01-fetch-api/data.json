@@ -1,0 +1,37 @@
+{
+    "notes": [],
+    "meetup": [
+        {
+            "title": "Mes couilles en ski",
+            "type": "keynote",
+            "attendees": [
+                "Anael CHARDAN",
+                "Guillaume CHANSON"
+            ]
+        },
+        {
+            "title": "Mes couilles en ski talk 1",
+            "type": "talk",
+            "attendees": [
+                "Anael CHARDAN",
+                "Guillaume CHANSON"
+            ]
+        },
+        {
+            "title": "Mes couilles en ski talk 2",
+            "type": "talk",
+            "attendees": [
+                "Anael CHARDAN",
+                "Guillaume CHANSON"
+            ]
+        },
+        {
+            "title": "Mes couilles en ski quicky 1",
+            "type": "quicky",
+            "attendees": [
+                "Anael CHARDAN",
+                "Guillaume CHANSON"
+            ]
+        }
+    ]
+}
