@@ -1,0 +1,20 @@
+{
+  "name": "IMT-Multiplateforme",
+  "version": "1.0.0",
+  "description": "## 01-fetch-api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anaelChardan/IMT-Multiplateforme.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anaelChardan/IMT-Multiplateforme/issues"
+  },
+  "homepage": "https://github.com/anaelChardan/IMT-Multiplateforme#readme"
+}
