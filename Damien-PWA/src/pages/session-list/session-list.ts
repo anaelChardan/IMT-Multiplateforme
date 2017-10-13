@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {SessionProvider} from "../../providers/session-provider";
 import {Observable} from "rxjs/Observable";
-import {SessionImageProvider} from "../../providers/session-image-provider";
+import {DevFestImageProvider} from "../../providers/devfest-image-provider";
 import {SessionDetail} from "../session-detail/session-detail";
 
 /**
@@ -22,10 +22,10 @@ export class SessionList {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private sessionProvider: SessionProvider,
-              private sessionImageProvider: SessionImageProvider) {
+              private DevFestImageProvider: DevFestImageProvider) {
     this.sessionObservable = this.sessionProvider.getAll();
     // this.sessionObservable = this.sessionObservable.flatMap(session => {
-    //   return this.sessionImageProvider.getImage(session.image || "/images/backgrounds/opening.jpg").map(blob => {
+    //   return this.DevFestImageProvider.getImage(session.image || "/images/backgrounds/opening.jpg").map(blob => {
     //     session.imageData = blob;
     //     return session;
     //   })

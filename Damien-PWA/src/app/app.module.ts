@@ -11,15 +11,20 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SessionList } from '../pages/session-list/session-list';
-import {SessionProvider} from "../providers/session-provider";
+import { SpeakerList } from '../pages/speaker-list/speaker-list';
+import { SpeakerDetail } from '../pages/speaker-detail/speaker-detail';
+import { SessionProvider } from "../providers/session-provider";
+import { SpeakerProvider } from "../providers/speaker-provider";
 import {Http} from "../utils/http";
-import {SessionImageProvider} from "../providers/session-image-provider";
+import {DevFestImageProvider} from "../providers/devfest-image-provider";
 import {SessionDetail} from "../pages/session-detail/session-detail";
 import {PhoneDetails} from "../pages/phone-details/phone-details";
 import {Device} from "@ionic-native/device";
 import {Network} from "@ionic-native/network";
 import {Camera} from "@ionic-native/camera";
 import {Gallery} from "../media/Gallery";
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,9 @@ import {Gallery} from "../media/Gallery";
     TabsPage,
     PhoneDetails,
     SessionDetail,
-    SessionList
+    SessionList,
+    SpeakerList,
+    SpeakerDetail,
   ],
   imports: [
     BrowserModule,
@@ -45,18 +52,23 @@ import {Gallery} from "../media/Gallery";
     TabsPage,
     PhoneDetails,
     SessionDetail,
-    SessionList
+    SessionList,
+    SpeakerList,
+    SpeakerDetail
   ],
   providers: [
     StatusBar,
     SplashScreen,
     SessionProvider,
-    SessionImageProvider,
+    SpeakerProvider,
+    DevFestImageProvider,
     Http,
     Device,
     Network,
     Camera,
     Gallery,
+    Contacts,
+    LocalNotifications,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
