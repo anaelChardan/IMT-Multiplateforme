@@ -14,27 +14,27 @@ const API = {
 (() => {
     'use strict';
 
-    if (!('serviceWorker' in navigator)) {
-        console.log('Service worker non supporté'); return;
-    }
+    // if (!('serviceWorker' in navigator)) {
+    //     console.log('Service worker non supporté'); return;
+    // }
 
-    navigator.serviceWorker.register('service-worker.js')
-        .then(() => {
-            console.log('Enregistrement OK');
-            navigator.serviceWorker.onmessage = function (event) {
-                console.log("Reçu du SW : ", event.data);
-            }
-            // envoyer un message au service worker
-            if (navigator.serviceWorker.controller) {
-                // navigator.serviceWorker.controller.postMessage({
-                //     "command": "MISE_A_JOUR",
-                //     "message": "Hello je suis un client"
-                // });
-            }
-        })
-        .catch(error => {
-            console.log('Enregistrement KO :', error);
-        });
+    // navigator.serviceWorker.register('service-worker.js')
+    //     .then(() => {
+    //         console.log('Enregistrement OK');
+    //         navigator.serviceWorker.onmessage = function (event) {
+    //             console.log("Reçu du SW : ", event.data);
+    //         }
+    //         // envoyer un message au service worker
+    //         if (navigator.serviceWorker.controller) {
+    //             // navigator.serviceWorker.controller.postMessage({
+    //             //     "command": "MISE_A_JOUR",
+    //             //     "message": "Hello je suis un client"
+    //             // });
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.log('Enregistrement KO :', error);
+    //     });
     
 
 
@@ -42,22 +42,7 @@ const API = {
     const main = document.getElementById('main');
 
     if ('fetch' in window) {
-        API.fetchSessions().then(json => {
-            const categories = [];
-            const sessions = [];
-            for (let i in json) {
-                sessions.push(json[i]);
-                if (!categories.includes(json[i].type)) {
-                    categories.push(json[i].type);
-                }
-            }
-            categories.forEach(c =>
-                renderSessions(main, {
-                    type: c,
-                    meetups: sessions.filter(m => m.type === c)
-                }
-            ));
-        })
+        showSessions();
     } else {
         alert("Please update browser")
     }
@@ -65,43 +50,68 @@ const API = {
 
 
 
-function renderSession(session) {
-    return `
-        <li><b>${session.title}</b> | <button onclick="showSession(${session.id})">voir plus</button></li>
-    `
+///////////////////////////////
+///////// SESSIONS ////////////
+///////////////////////////////
+
+function showSessions() {
+    API.fetchSessions().then(json => {
+        const categories = [];
+        const sessions = [];
+        for (let i in json) {
+            sessions.push(json[i]);
+            if (!categories.includes(json[i].type)) {
+                categories.push(json[i].type);
+            }
+        }
+        categories.forEach(c =>
+            renderSessionsList(main, {
+                type: c,
+                meetups: sessions.filter(m => m.type === c)
+            }
+        ));
+    })
 }
-function renderSessions(container, data) {
-    const meetups = data.meetups.map(m => renderSession(m));
+
+function renderSessionsList(container, data) {
+    const sessionsHtmlList = data.meetups.map(session => renderSessionList(session)).join('');
     const child = document.createElement('div');
+
     child.innerHTML = `
         <h2>${data.type}</h2>
         <ul>
-            ${meetups.join('')}</li>
-        </ul`;
+            ${sessionsHtmlList}
+        </ul>`;
+
     container.appendChild(child);
 }
 
 
+function renderSessionList(session) {
+    return `
+        <li><b>${session.title}</b> | <button onclick="showSessionFull(${session.id})">voir plus</button></li>
+    `
+}
 
 
-function renderSpeaker(speaker) {
+function renderSpeakerList(speaker) {
     return `
         <li><b>${speaker.name}</b> | <button onclick="showSpeaker(${speaker.id})">voir plus</button></li>
     `
 }
 
 
-function showSession(id) {
+function showSessionFull(id) {
     API.fetchSession(id).then(session => {
         API.fetchSpeakers().then(speakers => {
-            const speakersHTML = session.speakers.map(id => renderSpeaker(speakers[id])).join('');
+            const speakersHtmlList = session.speakers.map(id => renderSpeakerList(speakers[id])).join('');
             main.innerHTML = `
                 <h2>${session.title}</h2>
                 <p>${session.description}</p>
                 <div>
                     Speakers:
                     <ul>
-                        ${speakersHTML}
+                        ${speakersHtmlList}
                     </ul>
                 </div>
             `;
