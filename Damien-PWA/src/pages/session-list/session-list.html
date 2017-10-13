@@ -1,0 +1,26 @@
+<!--
+  Generated template for the SessionList page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Sessions</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let session of sessionObservable | async" (click)="sessionSelected(session)">
+      <ion-thumbnail item-start>
+        <img [src]="session.imageData">
+      </ion-thumbnail>
+      <h2>{{ session.title }}</h2>
+      <p></p>
+    </ion-item>
+  </ion-list>
+</ion-content>
